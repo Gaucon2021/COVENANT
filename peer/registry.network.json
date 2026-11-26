@@ -1,0 +1,8 @@
+{
+  "tools": [
+    {
+      "name": "registry",
+      "description": "Public read-only profile discovery. No LLM inference or tool execution configured."
+    }
+  ]
+}
