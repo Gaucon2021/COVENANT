@@ -1,0 +1,1 @@
+export default {"policy":{"origins":["https://peer.example"],"capabilities":["read"]},"request":{"origin":"https://peer.example","capability":"read","delegated":["pay"],"userConsent":true,"expiresAt":200},"now":100};
