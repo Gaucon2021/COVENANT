@@ -1,0 +1,1 @@
+import{accept}from './protocol.mjs';const parentOrigin="https://covenant-dun.vercel.app",seen=new Set();window.addEventListener("message",event=>{const r=accept(event,window.parent,parentOrigin,seen,Date.now());document.getElementById("status").textContent=r.status;if(r.status==="ACCEPT")window.parent.postMessage(r.response,parentOrigin);});
