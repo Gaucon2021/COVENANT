@@ -1,0 +1,9 @@
+{
+  "networks": [
+    {
+      "name": "public-registry",
+      "front_man": "registry",
+      "hocon": "registry.network.json"
+    }
+  ]
+}
