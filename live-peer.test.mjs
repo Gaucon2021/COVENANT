@@ -8,3 +8,5 @@ test("expired rejected",()=>assert.equal(validateResponse(e,w,p,200),false));
 test("no pending request rejected",()=>assert.equal(validateResponse(e,w,null,100),false));
 
 const denied={...p,capability:"pay"};const d={source:w,origin:PEER_ORIGIN,data:{...denied,protocol:"covenant.read.v1",decision:"BLOCK_SCOPE"}};test("bound denial",()=>assert.equal(validateDenial(d,w,denied,100),true));test("forged denial",()=>assert.equal(validateDenial({...d,origin:"https://evil.example"},w,denied,100),false));test("denial cannot authorize or include result",()=>{assert.equal(validateResponse(d,w,denied,100),false);assert.equal(validateDenial({...d,data:{...d.data,result:{}}},w,denied,100),false)});
+
+test("out-of-scope success response cannot be accepted",()=>assert.equal(validateResponse({...e,data:{...e.data,capability:"pay"}},w,{...p,capability:"pay"},100),false));
