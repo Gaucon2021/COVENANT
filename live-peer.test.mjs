@@ -10,3 +10,7 @@ test("no pending request rejected",()=>assert.equal(validateResponse(e,w,null,10
 const denied={...p,capability:"pay"};const d={source:w,origin:PEER_ORIGIN,data:{...denied,protocol:"covenant.read.v1",decision:"BLOCK_SCOPE"}};test("bound denial",()=>assert.equal(validateDenial(d,w,denied,100),true));test("forged denial",()=>assert.equal(validateDenial({...d,origin:"https://evil.example"},w,denied,100),false));test("denial cannot authorize or include result",()=>{assert.equal(validateResponse(d,w,denied,100),false);assert.equal(validateDenial({...d,data:{...d.data,result:{}}},w,denied,100),false)});
 
 test("out-of-scope success response cannot be accepted",()=>assert.equal(validateResponse({...e,data:{...e.data,capability:"pay"}},w,{...p,capability:"pay"},100),false));
+
+test("unexpected nested capability rejected",()=>assert.equal(validateResponse({...e,data:{...e.data,result:{...e.data.result,capability:"pay"}}},w,p,100),false));
+test("mixed approval and denial rejected",()=>assert.equal(validateResponse({...e,data:{...e.data,decision:"BLOCK_SCOPE"}},w,p,100),false));
+test("unknown denial fields rejected",()=>assert.equal(validateDenial({...d,data:{...d.data,extra:"unexpected"}},w,denied,100),false));
